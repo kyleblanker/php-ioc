@@ -223,13 +223,14 @@ class Container implements ContainerInterface
      */
     public function getOrSet($class)
     {
-        $instance = $this->get($class);
-
-        if (is_null($instance)) {
+        try {
+            $instance = $this->get($class);
+        } catch (Exceptions\NotFoundException $e) {
             $this->set($class, $class);
             $instance = $this->get($class);
         }
 
         return $instance;
+
     }
 }
