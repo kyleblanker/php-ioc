@@ -1,4 +1,14 @@
 {
+    "name": "kyleblanker/php-ioc",
+    "description": "PHP Ioc Container",
+    "license": "MIT",
+    "keywords": ["php", "ioc","container"],
+    "authors": [
+        {
+            "name": "Kyle Blanker",
+            "email": "kyle@blanker.us"
+        }
+    ],
     "require": {
         "psr/container": "^1.0"
     },
