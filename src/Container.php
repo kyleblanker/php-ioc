@@ -72,8 +72,11 @@ class Container implements ContainerInterface
     /**
      * Resolves the parameters of a method/function
      *
-     * @param  array  $parameters list of paramters
+     * @param  array  $parameters list of parameters
      * @param  array $arguments  primitive arguments
+     *
+     * @throws Exceptions\ContainerException
+     *
      * @return array $dependencies the resolved dependencies of the method/function
      */
     protected function resolveParameters(array $parameters, $arguments)
@@ -101,7 +104,7 @@ class Container implements ContainerInterface
                 throw new Exceptions\ContainerException($msg);
             }
 
-            $dependencies[] = $this->make($dependency_class_name);
+            $dependencies[] = $this->getOrMake($dependency_class_name);
         }
 
         return $dependencies;
@@ -110,8 +113,11 @@ class Container implements ContainerInterface
     /**
      * Resolves the primitive parameters of a method/function
      *
-     * @param  ReflectionParameter $parameter The parameter to resolve
+     * @param  \ReflectionParameter $parameter The parameter to resolve
      * @param  array $arguments list of primitive arguments
+     *
+     * @throws Exceptions\ContainerException
+     *
      * @return mixed argument that will represent that parameter
      */
     protected function resolvePrimitive(\ReflectionParameter $parameter, array &$arguments)
@@ -132,7 +138,10 @@ class Container implements ContainerInterface
      * Attempts to inject dependencies into a new instance of the class
      *
      * @param string $class The class to create an instance of
-     * @param array list of primitive data type arguments to add to class constructor
+     * @param array $arguments list of primitive data type arguments to add to class constructor
+     *
+     * @throws Exceptions\ContainerException
+     *
      * @return object
      */
     public function make($class, $arguments = [])
@@ -191,6 +200,9 @@ class Container implements ContainerInterface
      * Returns entry from Container's instances array
      *
      * @param string $id Identifier of the entry to look for.
+     *
+     * @throws Exceptions\NotFoundException
+     *
      * @return mixed
      */
     public function get($id)
@@ -221,7 +233,7 @@ class Container implements ContainerInterface
      * @param string $class name of class
      * @return mixed
      */
-    public function getOrSet($class)
+    public function getOrMake($class)
     {
         try {
             $instance = $this->get($class);

@@ -9,7 +9,7 @@ use KyleBlanker\Ioc\Container;
 use KyleBlanker\Ioc\Exceptions\ContainerException;
 use KyleBlanker\Ioc\Exceptions\NotFoundException;
 
-class ContainerTest extends PHPUnit_Framework_TestCase
+class ContainerTest extends \PHPUnit\Framework\TestCase
 {
     private function getContainer()
     {

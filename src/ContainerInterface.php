@@ -50,5 +50,5 @@ interface ContainerInterface extends PsrContainerInterface
      * @param string $class name of class
      * @return mixed
      */
-    public function getOrSet($class);
+    public function getOrMake($class);
 }
